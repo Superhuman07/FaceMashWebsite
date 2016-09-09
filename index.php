@@ -5,21 +5,22 @@ include('mysql.php');
 include('functions.php');
 
 
-// Get random 2
+// Get any 2 random images from images table
 $query="SELECT * FROM images ORDER BY RAND() LIMIT 0,2";
 $result = @mysql_query($query);
 
+// Fetching each image from rows
 while($row = mysql_fetch_object($result)) {
 	$images[] = (object) $row;
 }
 
 
-// Get the top10
+// Get the top 10 images from image table
 $result = mysql_query("SELECT *, ROUND(score/(1+(losses/wins))) AS performance FROM images ORDER BY ROUND(score/(1+(losses/wins))) DESC LIMIT 0,10");
 while($row = mysql_fetch_object($result)) $top_ratings[] = (object) $row;
 
 
-// Close the connection
+// Close the mysql connection
 mysql_close();
 
 
@@ -29,6 +30,7 @@ mysql_close();
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Facemash-Alike Script</title>
+<!-- Edit to change the design of the index page -->
 <style type="text/css">
 
 body, html {font-family:Arial, Helvetica, sans-serif;width:100%;margin:0;padding:0;text-align:center;}
@@ -48,6 +50,7 @@ td {font-size:11px;}
 <h2>Who's hotter? Click to choose.</h2>
 
 <center>
+<!-- Table to show the scores -->	
 <table>
 	<tr>
 		<td valign="top" class="image"><a href="rate.php?winner=<?=$images[0]->image_id?>&loser=<?=$images[1]->image_id?>"><img src="images/<?=$images[0]->filename?>" /></a></td>
@@ -69,6 +72,7 @@ td {font-size:11px;}
 </center>
 
 <h2>Top Rated</h2>
+<!-- Top rated images -->
 <center>
 <table>
 	<tr>
