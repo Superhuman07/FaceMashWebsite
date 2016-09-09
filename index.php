@@ -1,6 +1,6 @@
 <?php
 
-
+// See the below files first to configure settings
 include('mysql.php');
 include('functions.php');
 
